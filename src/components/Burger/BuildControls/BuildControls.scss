@@ -1,0 +1,13 @@
+$color-orange: #cf8f2e;
+$color-grey: #ccc;
+
+.buildControls {
+  align-items: center;
+  background-color: $color-orange;
+  box-shadow: 0 2px 1px $color-grey;
+  display: flex;
+  flex-flow: column;
+  margin: auto;
+  padding: 10px 0;
+  width: 100%;
+}

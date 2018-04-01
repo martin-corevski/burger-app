@@ -1,0 +1,78 @@
+$color-white: #fff;
+$color-grey: #ccc;
+$color-brown: #aa6817;
+$color-button-disabled1: #ac9980;
+$color-button-disabled2: #7e7365;
+$color-label-less: #d39952;
+$color-label-less-effect: #daa972;
+$color-label-more: #8f5e1e;
+$color-label-more-effect: #99703f;
+
+.buildControl {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+
+  .button {
+    border: 1px solid $color-brown;
+    cursor: pointer;
+    display: block;
+    font: inherit;
+    margin: 0 5px;
+    outline: none;
+    padding: 5px;
+    width: 80px;
+
+    :disabled {
+      background-color: $color-button-disabled1;
+      border: 1px solid $color-button-disabled2;
+      color: $color-grey;
+      cursor: default;
+    }
+
+    :hover {
+      :disabled {
+        background-color: $color-button-disabled1;
+        color: $color-grey;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .less {
+    background-color: $color-label-less;
+    color: $color-white;
+
+    :hover {
+      background-color: $color-label-less-effect;
+      color: $color-white;
+    }
+
+    :active {
+      background-color: $color-label-less-effect;
+      color: $color-white;
+    }
+  }
+
+  .more {
+    background-color: $color-label-more;
+    color: $color-white;
+
+    :hover {
+      background-color: $color-label-more-effect;
+      color: $color-white;
+    }
+
+    :active {
+      background-color: $color-label-more-effect;
+      color: $color-white;
+    }
+  }
+}
+
+.label {
+  font-weight: bold;
+  padding: 10px;
+  width: 80px;
+}
