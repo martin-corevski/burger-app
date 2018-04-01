@@ -1,0 +1,130 @@
+@import '../../../assets/colors';
+
+$color-bread1: #f08e4a;
+$color-bread2: #e27b36;
+$color-bread3: #c15711;
+$color-bread-top1: #bc581e;
+$color-bread-top2: #e27b36;
+$color-bread-top3: #c15711;
+$color-seeds: #c9c9c9;
+$color-meat1: #7f3608;
+$color-meat2: #702e05;
+$color-cheese1: #f4d004;
+$color-cheese2: #d6bb22;
+$color-salad1: #228c1d;
+$color-salad2: #91ce50;
+$color-bacon1: #bf3813;
+$color-bacon2: #c45e38;
+
+.breadBottom {
+  background: linear-gradient($color-bread1, $color-bread2);
+  border-radius: 0 0 30px 30px;
+  box-shadow: inset -15px 0 $color-bread3;
+  height: 13%;
+  margin: 2% auto;
+  width: 80%;
+}
+
+.breadTop {
+  background: linear-gradient($color-bread-top1, $color-bread-top2);
+  border-radius: 50% 50% 0 0;
+  box-shadow: inset -15px 0 $color-bread-top3;
+  height: 20%;
+  margin: 2% auto;
+  position: relative;
+  width: 80%;
+}
+
+.seeds1 {
+  background-color: $color-white;
+  border-radius: 40%;
+  box-shadow: inset -2px -3px $color-seeds;
+  height: 15%;
+  left: 30%;
+  position: absolute;
+  top: 50%;
+  transform: rotate(-20deg);
+  width: 10%;
+
+  ::before {
+    background-color: $color-white;
+    border-radius: 40%;
+    box-shadow: inset -1px -3px $color-seeds;
+    content: '';
+    height: 100%;
+    left: 180%;
+    position: absolute;
+    top: -50%;
+    transform: rotate(60deg);
+    width: 100%;
+  }
+
+  ::after {
+    background-color: $color-white;
+    border-radius: 40%;
+    box-shadow: inset -1px 2px $color-seeds;
+    content: '';
+    height: 100%;
+    left: -170%;
+    position: absolute;
+    top: -260%;
+    transform: rotate(60deg);
+    width: 100%;
+  }
+}
+
+.seeds2 {
+  background-color: $color-white;
+  border-radius: 40%;
+  box-shadow: inset -3px 0 $color-seeds;
+  height: 15%;
+  left: 64%;
+  position: absolute;
+  top: 50%;
+  transform: rotate(10deg);
+  width: 10%;
+
+  ::before {
+    background-color: $color-white;
+    border-radius: 40%;
+    box-shadow: inset 1px 3px $color-seeds;
+    content: '';
+    height: 100%;
+    left: 150%;
+    position: absolute;
+    top: -130%;
+    transform: rotate(90deg);
+    width: 100%;
+  }
+}
+
+.meat {
+  background: linear-gradient($color-meat1, $color-meat2);
+  border-radius: 15px;
+  height: 8%;
+  margin: 2% auto;
+  width: 80%;
+}
+
+.cheese {
+  background: linear-gradient($color-cheese1, $color-cheese2);
+  border-radius: 20px;
+  height: 4.5%;
+  margin: 2% auto;
+  width: 90%;
+}
+
+.salad {
+  background: linear-gradient($color-salad1, $color-salad2);
+  border-radius: 20px;
+  height: 7%;
+  margin: 2% auto;
+  width: 85%;
+}
+
+.bacon {
+  background: linear-gradient($color-bacon1, $color-bacon2);
+  height: 3%;
+  margin: 2% auto;
+  width: 80%;
+}
