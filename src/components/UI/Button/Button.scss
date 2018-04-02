@@ -1,0 +1,28 @@
+$color-white: #fff;
+$color-success: #5c9210;
+$color-danger: #944317;
+
+.button {
+  background-color: transparent;
+  border: 0;
+  color: $color-white;
+  cursor: pointer;
+  font: inherit;
+  font-weight: bold;
+  margin: 10px;
+  outline: none;
+  padding: 10px;
+
+  &:first-of-type {
+    margin-left: 0;
+    padding-left: 0;
+  }
+}
+
+.success {
+  color: $color-success;
+}
+
+.danger {
+  color: $color-danger;
+}

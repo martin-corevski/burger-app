@@ -22,7 +22,8 @@ export default class BurgerBuilder extends Component {
       salad: 0
     },
     totalPrice: 3,
-    canOrder: false
+    canOrder: false,
+    ordering: false
   }
 
   updateOrderState (ingredients) {
@@ -75,6 +76,22 @@ export default class BurgerBuilder extends Component {
     this.updateOrderState(ingredients)
   }
 
+  orderHandler = () => {
+    this.setState({
+      ordering: true
+    })
+  }
+
+  cancelOrderHandler = () => {
+    this.setState({
+      ordering: false
+    })
+  }
+
+  continueWithOrderHandler = () => {
+    window.alert('Continua!')
+  }
+
   render () {
     // copy state ingredients for immutability
     const disabledIngredients = {
@@ -88,8 +105,15 @@ export default class BurgerBuilder extends Component {
 
     return (
       <Aux>
-        <Modal>
-          <OrderSummary ingredients={this.state.ingredients} />
+        <Modal
+          show={this.state.ordering}
+          cancelOrdering={this.cancelOrderHandler}>
+          <OrderSummary
+            ingredients={this.state.ingredients}
+            price={this.state.totalPrice}
+            cancelOrdering={this.cancelOrderHandler}
+            continueWithOrder={this.continueWithOrderHandler}
+          />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
@@ -97,6 +121,7 @@ export default class BurgerBuilder extends Component {
           addIngredient={this.addIngredientHandler} removeIngredient={this.removeIngredientHandler}
           disabled={disabledIngredients}
           canOrder={this.state.canOrder}
+          ordering={this.orderHandler}
         />
       </Aux>
     )
