@@ -14,7 +14,7 @@ $color-label-more-effect: #99703f;
   justify-content: space-between;
   margin: 5px 0;
 
-  .button {
+  button {
     border: 1px solid $color-brown;
     cursor: pointer;
     display: block;
@@ -24,15 +24,15 @@ $color-label-more-effect: #99703f;
     padding: 5px;
     width: 80px;
 
-    :disabled {
+    &:disabled {
       background-color: $color-button-disabled1;
       border: 1px solid $color-button-disabled2;
       color: $color-grey;
       cursor: default;
     }
 
-    :hover {
-      :disabled {
+    &:hover {
+      &:disabled {
         background-color: $color-button-disabled1;
         color: $color-grey;
         cursor: not-allowed;
@@ -44,12 +44,12 @@ $color-label-more-effect: #99703f;
     background-color: $color-label-less;
     color: $color-white;
 
-    :hover {
+    &:hover {
       background-color: $color-label-less-effect;
       color: $color-white;
     }
 
-    :active {
+    &:active {
       background-color: $color-label-less-effect;
       color: $color-white;
     }
@@ -59,12 +59,12 @@ $color-label-more-effect: #99703f;
     background-color: $color-label-more;
     color: $color-white;
 
-    :hover {
+    &:hover {
       background-color: $color-label-more-effect;
       color: $color-white;
     }
 
-    :active {
+    &:active {
       background-color: $color-label-more-effect;
       color: $color-white;
     }

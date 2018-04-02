@@ -1,0 +1,22 @@
+$color-black: #000;
+$color-grey: #ccc;
+$color-white: #fff;
+
+.modal {
+  background-color: $color-white;
+  border: 1px solid $color-grey;
+  box-shadow: 1px 1px 1px $color-black;
+  box-sizing: border-box;
+  left: 15%;
+  padding: 16px;
+  position: fixed;
+  top: 30%;
+  transition: .3s ease-out;
+  width: 70%;
+  z-index: 500;
+
+  @media (min-width: 600px) {
+    left: calc(50% - 250px);
+    width: 500px;
+  }
+}

@@ -1,5 +1,10 @@
 $color-orange: #cf8f2e;
 $color-grey: #ccc;
+$color-dark-grey: #888;
+$color-button-order1: #dad735;
+$color-button-order2: #966909;
+$color-button-order3: #a0db41;
+$color-button-order4: #c7c6c6;
 
 .buildControls {
   align-items: center;
@@ -10,4 +15,53 @@ $color-grey: #ccc;
   margin: auto;
   padding: 10px 0;
   width: 100%;
+}
+
+.orderButton {
+  background-color: $color-button-order1;
+  border: 1px solid $color-button-order2;
+  box-shadow: 2px 2px 2px $color-button-order2;
+  color: $color-button-order2;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1.2em;
+  outline: none;
+  padding: 15px 30px;
+
+  &:hover {
+    background-color: $color-button-order3;
+    border: 1px solid $color-button-order2;
+    color: $color-button-order2;
+  }
+
+  &:active {
+    background-color: $color-button-order3;
+    border: 1px solid $color-button-order2;
+    color: $color-button-order2;
+  }
+
+  &:disabled {
+    background-color: $color-button-order4;
+    border: 1px solid $color-grey;
+    color: $color-dark-grey;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled) {
+    animation: enable .3s linear;
+  }
+}
+
+@keyframes enable {
+  0% {
+    transform: scale(1);
+  }
+
+  60% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
