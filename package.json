@@ -1,7 +1,7 @@
 {
-  "name": "react-app",
+  "name": "burger-app",
   "version": "1.0.0",
-  "description": "React app, starter configuration",
+  "description": "React burger app, udemy course",
   "main": "index.js",
   "browserslist": [
     "> 1%",
