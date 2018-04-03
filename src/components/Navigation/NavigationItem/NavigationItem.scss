@@ -3,36 +3,63 @@ $color-brown: #8f5c2c;
 $color-light-blue: #40a4c8;
 
 .navigationItem {
-  align-items: center;
   box-sizing: border-box;
-  display: flex;
-  height: 100%;
-  margin: 0;
+  display: block;
+  margin: 10px 0;
+  width: 100%;
 
   a {
-    border-bottom: 4px solid transparent;
     box-sizing: border-box;
-    color: $color-white;
-    height: 100%;
-    padding: 16px 10px;
+    color: $color-brown;
+    display: block;
     text-decoration: none;
+    width: 100%;
 
     &:hover {
-      background-color: $color-brown;
-      border-bottom: 4px solid $color-light-blue;
-      color: $color-white;
+      color: $color-light-blue;
     }
 
     &:active {
-      background-color: $color-brown;
-      border-bottom: 4px solid $color-light-blue;
-      color: $color-white;
+      color: $color-light-blue;
     }
 
     .active {
-      background-color: $color-brown;
-      border-bottom: 4px solid $color-light-blue;
+      color: $color-light-blue;
+    }
+  }
+}
+
+@media (min-width: 500px) {
+  .navigationItem {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    margin: 0;
+    width: auto;
+
+    a {
+      border-bottom: 4px solid transparent;
       color: $color-white;
+      height: 100%;
+      padding: 16px 10px;
+
+      &:hover {
+        background-color: $color-brown;
+        border-bottom: 4px solid $color-light-blue;
+        color: $color-white;
+      }
+
+      &:active {
+        background-color: $color-brown;
+        border-bottom: 4px solid $color-light-blue;
+        color: $color-white;
+      }
+
+      .active {
+        background-color: $color-brown;
+        border-bottom: 4px solid $color-light-blue;
+        color: $color-white;
+      }
     }
   }
 }

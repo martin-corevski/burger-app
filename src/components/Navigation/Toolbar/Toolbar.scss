@@ -18,3 +18,19 @@ $color-toolbar: #703b09;
     height: 100%;
   }
 }
+
+.logo {
+  height: 80%;
+}
+
+@media (max-width: 499px) {
+  .desktopOnly {
+    display: none;
+  }
+}
+
+@media (min-width: 500px) {
+  .mobileOnly {
+    display: none;
+  }
+}
