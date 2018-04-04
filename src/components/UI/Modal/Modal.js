@@ -11,7 +11,10 @@ export default class Modal extends Component {
   shouldComponentUpdate (nextProps, nextState) {
     // Update component only if the modal is oppened or closed, in other words
     // if props.show changed
-    return nextProps.show !== this.props.show
+    return nextProps.show !== this.props.show ||
+    nextProps.children !== this.props.children
+    // with children we are taking into consideration the spinner and order
+    // summary components when deciding whether or not to update the component
   }
 
   componentWillUpdate () {

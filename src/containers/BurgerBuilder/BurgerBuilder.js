@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
-import Aux from '../../hoc/Auxiliary'
+import axios from '../../axios-orders'
 
+import Aux from '../../hoc/Auxiliary'
 import Burger from '../../components/Burger/Burger'
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
 import Modal from '../../components/UI/Modal/Modal'
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
+import Spinner from '../../components/UI/Spinner/Spinner'
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 
 const INGREDIENT_PRICES = {
   bacon: 0.7,
@@ -13,17 +16,28 @@ const INGREDIENT_PRICES = {
   salad: 0.5
 }
 
-export default class BurgerBuilder extends Component {
+class BurgerBuilder extends Component {
   state = {
-    ingredients: {
-      bacon: 0,
-      cheese: 0,
-      meat: 0,
-      salad: 0
-    },
+    ingredients: null,
     totalPrice: 3,
     canOrder: false,
-    ordering: false
+    ordering: false,
+    loading: false,
+    error: null
+  }
+
+  componentDidMount () {
+    axios.get('/ingredients.json')
+      .then(res => {
+        this.setState({
+          ingredients: res.data
+        })
+      })
+      .catch(err => {
+        this.setState({
+          error: err
+        })
+      })
   }
 
   updateOrderState (ingredients) {
@@ -89,7 +103,39 @@ export default class BurgerBuilder extends Component {
   }
 
   continueWithOrderHandler = () => {
-    window.alert('Continua!')
+    // window.alert('Continua!')
+    this.setState({
+      loading: true
+    })
+    const order = {
+      ingredients: this.state.ingredients,
+      price: this.state.totalPrice.toFixed(2),
+      customer: {
+        name: 'M C',
+        address: {
+          street: 69,
+          house: 12,
+          zipCode: 1000
+        },
+        email: 'mail@email.com'
+      },
+      deliveryMethod: 'asap'
+    }
+
+    axios.post('/orders.json', order)
+      .then(response => {
+        this.setState({
+          ordering: false,
+          loading: false
+        })
+      })
+      .catch(error => {
+        console.log(error)
+        this.setState({
+          ordering: false,
+          loading: false
+        })
+      })
   }
 
   render () {
@@ -103,27 +149,49 @@ export default class BurgerBuilder extends Component {
       disabledIngredients[key] = disabledIngredients[key] <= 0
     }
 
+    let orderSummary = null
+    let burger = this.state.error
+      ? <p>{this.state.error.message}</p>
+      : <Spinner />
+
+    if (this.state.ingredients) {
+      burger = (
+        <Aux>
+          <Burger ingredients={this.state.ingredients} />
+          <BuildControls
+            price={this.state.totalPrice}
+            addIngredient={this.addIngredientHandler} removeIngredient={this.removeIngredientHandler}
+            disabled={disabledIngredients}
+            canOrder={this.state.canOrder}
+            ordering={this.orderHandler}
+          />
+        </Aux>
+      )
+      orderSummary = (
+        <OrderSummary
+          ingredients={this.state.ingredients}
+          price={this.state.totalPrice}
+          cancelOrdering={this.cancelOrderHandler}
+          continueWithOrder={this.continueWithOrderHandler}
+        />
+      )
+    }
+
+    if (this.state.loading) {
+      orderSummary = <Spinner />
+    }
+
     return (
       <Aux>
         <Modal
           show={this.state.ordering}
           cancelOrdering={this.cancelOrderHandler}>
-          <OrderSummary
-            ingredients={this.state.ingredients}
-            price={this.state.totalPrice}
-            cancelOrdering={this.cancelOrderHandler}
-            continueWithOrder={this.continueWithOrderHandler}
-          />
+          {orderSummary}
         </Modal>
-        <Burger ingredients={this.state.ingredients} />
-        <BuildControls
-          price={this.state.totalPrice}
-          addIngredient={this.addIngredientHandler} removeIngredient={this.removeIngredientHandler}
-          disabled={disabledIngredients}
-          canOrder={this.state.canOrder}
-          ordering={this.orderHandler}
-        />
+        {burger}
       </Aux>
     )
   }
 }
+
+export default withErrorHandler(BurgerBuilder, axios)

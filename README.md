@@ -1,6 +1,6 @@
-# React app
+# React burger app
 
-React 16 app setup with Webpack 4.
+React 16 app with Webpack 4, axios and firebase taught by **[Maximilian Schwarzmüller](https://www.udemy.com/react-the-complete-guide-incl-redux/)**
 
 ---
 ## Install dependencies
@@ -20,6 +20,17 @@ npm i -g ntl
 - Command to start **ntl** and choose an option
 ```
 ntl
+```
+
+### Set baseURL for axios
+
+- Inside `src/axios-orders.js` set the baseURL to your firebase app. You should already have the ingredients set on the firebase app.
+
+```
+const instance = axios.create({
+  // Set your firebase app url
+  baseURL: ''
+})
 ```
 
 ### Without ntl
