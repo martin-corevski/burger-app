@@ -1,0 +1,11 @@
+$color-grey: #ccc;
+$color-light-grey: #eee;
+
+.order {
+  border: 1px solid $color-grey;
+  box-shadow: 0 2px 3px $color-light-grey;
+  box-sizing: border-box;
+  margin: 10px auto;
+  padding: 10px;
+  width: 80%;
+}

@@ -23,7 +23,7 @@ $color-light-blue: #40a4c8;
       color: $color-light-blue;
     }
 
-    .active {
+    &.active {
       color: $color-light-blue;
     }
   }
@@ -55,7 +55,7 @@ $color-light-blue: #40a4c8;
         color: $color-white;
       }
 
-      .active {
+      &.active {
         background-color: $color-brown;
         border-bottom: 4px solid $color-light-blue;
         color: $color-white;
