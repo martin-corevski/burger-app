@@ -172,7 +172,7 @@ module.exports = env => {
        * @return {Boolean}        True if the content doesn't need to be parsed
        */
       noParse: function (content) {
-        return /jquery|lodash/.test(content)
+        return /jquery/.test(content)
       },
       /**
        * Every element of the rules option array is an object containing
