@@ -9,28 +9,16 @@ import Modal from '../../components/UI/Modal/Modal'
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 import Spinner from '../../components/UI/Spinner/Spinner'
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
-import * as actionTypes from '../../store/actions'
+import * as actionCreators from '../../store/actions/index'
 
 class BurgerBuilder extends Component {
   state = {
     ordering: false,
-    loading: false,
-    error: null
+    loading: false
   }
 
   componentDidMount () {
-    // axios.get('/ingredients.json')
-    //   .then(res => {
-    //     this.setState({
-    //       ingredients: res.data
-    //     })
-    //     this.updateOrderState(res.data)
-    //   })
-    //   .catch(err => {
-    //     this.setState({
-    //       error: err
-    //     })
-    //   })
+    this.props.onInitIngredients()
   }
 
   updateOrderState (ingredients) {
@@ -58,6 +46,7 @@ class BurgerBuilder extends Component {
   }
 
   continueWithOrderHandler = () => {
+    this.props.onInitOrder()
     this.props.history.push('/checkout')
   }
 
@@ -73,8 +62,8 @@ class BurgerBuilder extends Component {
     }
 
     let orderSummary = null
-    let burger = this.state.error
-      ? <p>{this.state.error.message}</p>
+    let burger = this.props.err
+      ? <p>{this.props.err.message}</p>
       : <Spinner />
 
     if (this.props.ings) {
@@ -119,20 +108,18 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
   return {
-    ings: state.ingredients,
-    price: state.totalPrice
+    ings: state.burger.ingredients,
+    price: state.burger.totalPrice,
+    err: state.burger.error
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAction: () => dispatch({type: actionTypes.ACTION}),
-    onAddIngredient: (key) => dispatch({
-      type: actionTypes.ADD_INGREDIENT,
-      key: key}),
-    onRemoveIngredient: (key) => dispatch({
-      type: actionTypes.REMOVE_INGREDIENT,
-      key: key})
+    onAddIngredient: (key) => dispatch(actionCreators.addIngredient(key)),
+    onRemoveIngredient: (key) => dispatch(actionCreators.removeIngredient(key)),
+    onInitIngredients: () => dispatch(actionCreators.initIngredients()),
+    onInitOrder: () => dispatch(actionCreators.initOrder())
   }
 }
 
