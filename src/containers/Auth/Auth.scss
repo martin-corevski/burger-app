@@ -1,0 +1,16 @@
+$color-grey: #ccc;
+$color-light-grey: #eee;
+
+.auth {
+  border: 1px solid $color-light-grey;
+  box-shadow: 0 2px 3px $color-grey;
+  box-sizing: border-box;
+  margin: 20px auto;
+  padding: 10px;
+  text-align: center;
+  width: 80%;
+
+  @media (min-width: 600px) {
+    width: 500px;
+  }
+}

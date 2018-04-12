@@ -9,10 +9,12 @@ import './index.scss'
 import App from './containers/App'
 import burgerBuilder from './store/reducers/burgerBuilder'
 import order from './store/reducers/order'
+import auth from './store/reducers/auth'
 
 const rootReducer = combineReducers({
   burger: burgerBuilder,
-  order: order
+  order: order,
+  auth: auth
 })
 
 // For Chrome Dev tools, https://github.com/zalmoxisus/redux-devtools-extension

@@ -20,11 +20,11 @@ export const ordering = () => {
   }
 }
 
-export const orderBurger = (order) => {
+export const orderBurger = (order, token) => {
   return dispatch => {
     dispatch(ordering()) // this method can be called from ContactData's
     // orderHandler method
-    axios.post('/orders.json', order)
+    axios.post('/orders.json?auth=' + token, order)
       .then(response => {
         dispatch(orderBurgerSuccess())
         // this.props.history.push('/') is handled in initOrder action
@@ -63,10 +63,10 @@ export const getOrdersStart = () => {
   }
 }
 
-export const getOrders = () => {
+export const getOrders = (token) => {
   return dispatch => {
     dispatch(getOrdersStart())
-    axios.get('/orders.json')
+    axios.get('/orders.json?auth=' + token)
       .then(res => {
         /*
         const fetchedOrders = []

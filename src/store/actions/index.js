@@ -9,3 +9,7 @@ export {
   initOrder,
   getOrders
 } from './order'
+export {
+  auth,
+  authTimeout
+} from './auth'

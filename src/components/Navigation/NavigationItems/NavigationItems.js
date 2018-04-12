@@ -16,6 +16,11 @@ export const navigationItems = (props) => (
     >
       My Orders
     </NavigationItem>
+    <NavigationItem
+      link='/auth'
+    >
+      Authenticate
+    </NavigationItem>
   </ul>
 )
 

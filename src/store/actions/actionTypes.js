@@ -11,3 +11,8 @@ export const INIT_ORDER = 'INIT_ORDER'
 export const GET_ORDERS_START = 'GET_ORDERS_START'
 export const GET_ORDERS_SUCCESS = 'GET_ORDERS_SUCCESS'
 export const GET_ORDERS_ERROR = 'GET_ORDERS_ERROR'
+
+export const AUTH_START = 'AUTH_START'
+export const AUTH_SUCCESS = 'AUTH_SUCCESS'
+export const AUTH_ERROR = 'AUTH_ERROR'
+export const AUTH_LOGOUT = 'AUTH_LOGOUT'
