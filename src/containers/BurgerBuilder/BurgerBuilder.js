@@ -34,9 +34,14 @@ class BurgerBuilder extends Component {
   }
 
   orderHandler = () => {
-    this.setState({
-      ordering: true
-    })
+    if (this.props.isLoggedIn) {
+      this.setState({
+        ordering: true
+      })
+    } else {
+      this.props.onOrderSignIn('/checkout')
+      this.props.history.push('/auth')
+    }
   }
 
   cancelOrderHandler = () => {
@@ -76,6 +81,7 @@ class BurgerBuilder extends Component {
             disabled={disabledIngredients}
             canOrder={this.updateOrderState(this.props.ings)}
             ordering={this.orderHandler}
+            isLoggedIn={this.props.isLoggedIn}
           />
         </Aux>
       )
@@ -110,7 +116,8 @@ const mapStateToProps = state => {
   return {
     ings: state.burger.ingredients,
     price: state.burger.totalPrice,
-    err: state.burger.error
+    err: state.burger.error,
+    isLoggedIn: state.auth.token !== null
   }
 }
 
@@ -119,7 +126,8 @@ const mapDispatchToProps = dispatch => {
     onAddIngredient: (key) => dispatch(actionCreators.addIngredient(key)),
     onRemoveIngredient: (key) => dispatch(actionCreators.removeIngredient(key)),
     onInitIngredients: () => dispatch(actionCreators.initIngredients()),
-    onInitOrder: () => dispatch(actionCreators.initOrder())
+    onInitOrder: () => dispatch(actionCreators.initOrder()),
+    onOrderSignIn: (path) => dispatch(actionCreators.setAuthRedirectPath(path))
   }
 }
 

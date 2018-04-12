@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import axios from '../../axios-orders'
 import { connect } from 'react-redux'
 
@@ -80,6 +81,12 @@ class Auth extends Component {
     return isValid
   }
 
+  componentDidMount () {
+    if (!this.props.isBuildingBurger && this.props.redirectPath !== '/') {
+      this.props.onSetRedirectPath('/')
+    }
+  }
+
   inputChangeHandler = (event, inputId) => {
     const copyOfForm = {...this.state.authForm}
     const input = {...copyOfForm[inputId]}
@@ -119,6 +126,11 @@ class Auth extends Component {
   render () {
     let auth = <Spinner />
     let errorMsg = null
+    let redirectOnLogin = null
+
+    if (this.props.isLoggedIn) {
+      redirectOnLogin = <Redirect to={this.props.redirectPath} />
+    }
 
     if (this.props.error) {
       errorMsg = <p>{this.props.error.message}</p>
@@ -154,6 +166,7 @@ class Auth extends Component {
 
     return (
       <div className={classes.auth}>
+        {redirectOnLogin}
         {errorMsg}
         {auth}
         <Button btnType='danger' click={this.changeModeHandler}>
@@ -168,13 +181,17 @@ class Auth extends Component {
 const mapStateToProps = state => {
   return {
     error: state.auth.error,
-    loading: state.auth.loading
+    loading: state.auth.loading,
+    isLoggedIn: state.auth.token !== null,
+    redirectPath: state.auth.authRedirectPath,
+    isBuildingBurger: state.burger.building
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: (email, pass, isSignUp) => dispatch(actionCreators.auth(email, pass, isSignUp))
+    onAuth: (email, pass, isSignUp) => dispatch(actionCreators.auth(email, pass, isSignUp)),
+    onSetRedirectPath: (path) => dispatch(actionCreators.setAuthRedirectPath(path))
   }
 }
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import Aux from '../Auxiliary'
 import classes from './Layout.scss'
@@ -8,7 +9,7 @@ import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer'
 // The Layout component could be part of the components folder, containers
 // folder (since it's a statefull component) or the hoc folder (since it's a
 // wrapper for the BurgerBuilder component, see App.js)
-export default class Layout extends Component {
+class Layout extends Component {
   state = {
     showSideDrawer: false
   }
@@ -24,9 +25,12 @@ export default class Layout extends Component {
   render () {
     return (
       <Aux>
-        <Toolbar openSideDrawer={this.openSideDrawerHandler} />
+        <Toolbar openSideDrawer={this.openSideDrawerHandler}
+          isLoggedIn={this.props.isLoggedIn} />
         <SideDrawer
-          isOpen={this.state.showSideDrawer} closeSideDrawer={this.closeSideDrawerHandler} />
+          isOpen={this.state.showSideDrawer}
+          isLoggedIn={this.props.isLoggedIn}
+          closeSideDrawer={this.closeSideDrawerHandler} />
         <main className={classes.content}>
           {this.props.children}
         </main>
@@ -34,3 +38,11 @@ export default class Layout extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    isLoggedIn: state.auth.token !== null
+  }
+}
+
+export default connect(mapStateToProps)(Layout)
