@@ -19,7 +19,6 @@ const withErrorHandler = (WrappedComponent, axios) => {
         res => res
         , error => {
           // Please see if you've set up the baseURL in axios-orders.js file.
-          console.log(error)
           this.setState({error})
         })
     }

@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  // Set your firebase app url
-  baseURL: ''
+  // Set your firebase db base url in your .env.dev and .env.prod files
+  baseURL: process.env.DB_BASE_URL
 })
 
 // // https://github.com/axios/axios#interceptors

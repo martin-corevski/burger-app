@@ -9,6 +9,7 @@ import Spinner from '../../components/UI/Spinner/Spinner'
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import Input from '../../components/UI/Input/Input'
 import * as actionCreators from '../../store/actions/index'
+import { updateObject, checkIsValid } from '../../shared/utility'
 
 class Auth extends Component {
   state = {
@@ -49,38 +50,6 @@ class Auth extends Component {
     isSignUp: true
   }
 
-  checkIsValid (value, rules) {
-    let isValid = true
-    // if no validation object is configured for the input, return true
-    if (!rules) {
-      return true
-    }
-
-    if (rules.required) {
-      isValid = value.trim() !== '' && isValid
-    }
-
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid
-    }
-
-    if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid
-    }
-
-    if (rules.isEmail) {
-      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-      isValid = pattern.test(value) && isValid
-    }
-
-    if (rules.isNumeric) {
-      const pattern = /^\d+$/
-      isValid = pattern.test(value) && isValid
-    }
-
-    return isValid
-  }
-
   componentDidMount () {
     if (!this.props.isBuildingBurger && this.props.redirectPath !== '/') {
       this.props.onSetRedirectPath('/')
@@ -88,13 +57,23 @@ class Auth extends Component {
   }
 
   inputChangeHandler = (event, inputId) => {
-    const copyOfForm = {...this.state.authForm}
-    const input = {...copyOfForm[inputId]}
+    // const copyOfForm = {...this.state.authForm}
+    // const input = {...copyOfForm[inputId]}
 
-    input.value = event.target.value
-    input.isValid = this.checkIsValid(input.value, input.validation)
-    input.touched = true
-    copyOfForm[inputId] = input
+    // input.value = event.target.value
+    // input.isValid = checkIsValid(input.value, input.validation)
+    // input.touched = true
+    // copyOfForm[inputId] = input
+
+    const copyOfForm = updateObject(this.state.authForm,
+      {
+        [inputId]: updateObject(this.state.authForm[inputId], {
+          value: event.target.value,
+          isValid: checkIsValid(event.target.value, this.state.authForm[inputId].validation),
+          touched: true
+        })
+      }
+    )
 
     let formIsValid = true
     for (let input in copyOfForm) {

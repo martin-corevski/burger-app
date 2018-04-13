@@ -4,6 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 
 const occurrenceOrderPlugin = new webpack.optimize.OccurrenceOrderPlugin()
 const hotModuleReplacementPlugin = new webpack.HotModuleReplacementPlugin()
@@ -157,7 +158,7 @@ module.exports = env => {
        * more on https://webpack.js.org/configuration/output/#output-filename
        * @type {String}
        */
-      filename: 'js/scripts.min.js'
+      filename: 'js/[hash].bundle.js'
     },
     /**
      * This option determines how the different types of modules in the project
@@ -312,7 +313,15 @@ module.exports = env => {
        * Extracts css from the bundle.
        * @type {[type]}
        */
-      extractTextPlugin
+      extractTextPlugin,
+      /**
+       * Get environment variables by using process.env
+       * @type {Object}
+       */
+      new Dotenv({
+        path: '.env.dev',
+        systemvars: true
+      })
     ] : [
       /**
        * We can clear the content from our dist folder before every build:prod
@@ -330,7 +339,11 @@ module.exports = env => {
        * often used ids with a simple option.
        * @type {Object}
        */
-      occurrenceOrderPlugin
+      occurrenceOrderPlugin,
+      new Dotenv({
+        path: '.env.prod',
+        systemvars: true
+      })
     ]
   }
 }

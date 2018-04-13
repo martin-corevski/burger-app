@@ -18,7 +18,7 @@ export default class Modal extends Component {
   }
 
   componentWillUpdate () {
-    console.log('[Modal.js] willUpdate!')
+    // console.log('[Modal.js] willUpdate!')
   }
 
   render () {

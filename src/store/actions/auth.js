@@ -1,8 +1,8 @@
 import axios from 'axios'
 import * as actionTypes from './actionTypes'
 
-// Set your API key
-const API_KEY = ''
+// Set your API key in your .env.dev and .env.prod files
+const API_KEY = process.env.DB_API_KEY
 
 const authStart = () => {
   return {
@@ -57,7 +57,6 @@ export const auth = (email, password, isSignUp) => {
       : baseURL + 'verifyPassword?key=' + API_KEY
     axios.post(url, authData)
       .then(res => {
-        console.log(res)
         const expirationDate = new Date(new Date().getTime() + res.data.expiresIn * 1000)
         window.localStorage.setItem('token', res.data.idToken)
         window.localStorage.setItem('expirationDate', expirationDate)
@@ -66,7 +65,6 @@ export const auth = (email, password, isSignUp) => {
         dispatch(authTimeout(res.data.expiresIn))
       })
       .catch(err => {
-        console.log(err)
         dispatch(authError(err.response.data.error))
       })
   }

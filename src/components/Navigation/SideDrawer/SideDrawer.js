@@ -17,11 +17,12 @@ const sideDrawer = (props) => {
     <Aux>
       <Backdrop show={props.isOpen} close={props.closeSideDrawer} />
       <div className={attachedClasses.join(' ')}>
-        <div className={classes.logo}>
+        <div className={classes.logo} onClick={props.closeSideDrawer}>
           <Logo />
         </div>
         <nav>
-          <NavigationItems isLoggedIn={props.isLoggedIn} />
+          <NavigationItems
+            isLoggedIn={props.isLoggedIn} closeSideDrawer={props.closeSideDrawer} />
         </nav>
       </div>
     </Aux>
