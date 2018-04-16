@@ -52,9 +52,7 @@ class App extends Component {
 
     return (
       <div>
-        <Layout>
-          {routes}
-        </Layout>
+        <Layout>{routes}</Layout>
       </div>
     )
   }
