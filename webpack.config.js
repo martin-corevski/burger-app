@@ -158,7 +158,8 @@ module.exports = env => {
        * more on https://webpack.js.org/configuration/output/#output-filename
        * @type {String}
        */
-      filename: 'js/[hash].bundle.js'
+      filename: 'js/bundle.js',
+      chunkFilename: '[id].[hash].bundle.js'
     },
     /**
      * This option determines how the different types of modules in the project
@@ -247,25 +248,32 @@ module.exports = env => {
             // postcss loader is used in order for autoprefixer to auto add
             // browser specific prefixes
             use: [
-              'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+              {
+                // the css loader is set up to use CSS modules spec.
+                // More on https://github.com/webpack-contrib/css-loader#modules
+                loader: 'css-loader',
+                options: {
+                  modules: true,
+                  importLoaders: 2, // postcss and sass
+                  localIdentName: '[name]___[local]___[hash:base64:5]'
+                }
+              },
               'postcss-loader',
               'sass-loader'
             ],
-            // the css loader is set up to use CSS modules spec.
-            // More on https://github.com/webpack-contrib/css-loader#modules
             fallback: 'style-loader'
           })
         },
         // File loader for pictures
         {
-          test: /\.(jpg|png|gif|svg)$/,
+          test: /\.(jpe?g|png|gif|svg)$/,
           use: [
             {
-              loader: 'file-loader',
+              loader: 'url-loader',
               options: {
-                name: '[name].[ext]',
-                outputPath: './assets/',
-                publicPath: './assets/'
+                limit: 8192, // return DataURL if image size <= 8KB
+                name: 'assets/[name].[ext]',
+                fallback: 'file-loader' // use file loader for size > 8KB
               }
             }
           ]
