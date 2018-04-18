@@ -1,13 +1,20 @@
 export {
   addIngredient,
   removeIngredient,
-  initIngredients
+  initIngredients,
+  setIngredients,
+  getIngredientsError
 } from './burgerBuilder'
 export {
-  // ordering,
+  ordering,
   orderBurger,
+  orderBurgerSuccess,
+  orderBurgerError,
   initOrder,
-  getOrders
+  getOrders,
+  getOrdersStart,
+  getOrdersSuccess,
+  getOrdersError
 } from './order'
 export {
   auth,

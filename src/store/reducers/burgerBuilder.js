@@ -15,49 +15,39 @@ const INGREDIENT_PRICES = {
   salad: 0.5
 }
 
-const initIngredients = (state, action) => {
-  return updateObject(
-    state,
-    {
-      ingredients: action.ings,
-      totalPrice: 3,
-      error: false,
-      building: false
-    }
-  )
+const setIngredients = (state, action) => {
+  return updateObject(state, {
+    ingredients: action.ings,
+    totalPrice: 3,
+    error: false,
+    building: false
+  })
 }
 
-const initIngredientsError = (state, action) => {
-  return updateObject(
-    state,
-    { error: action.error }
-  )
+const setIngredientsError = (state, action) => {
+  return updateObject(state, { error: action.error })
 }
 
 const addIngredient = (state, action) => {
-  return updateObject(
-    state,
-    {
-      ingredients: {
-        ...state.ingredients,
-        [action.key]: state.ingredients[action.key] + 1
-      },
-      totalPrice: state.totalPrice + INGREDIENT_PRICES[action.key],
-      building: true
-    })
+  return updateObject(state, {
+    ingredients: {
+      ...state.ingredients,
+      [action.key]: state.ingredients[action.key] + 1
+    },
+    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.key],
+    building: true
+  })
 }
 
 const removeIngredient = (state, action) => {
-  return updateObject(
-    state,
-    {
-      ingredients: {
-        ...state.ingredients,
-        [action.key]: state.ingredients[action.key] - 1
-      },
-      totalPrice: state.totalPrice - INGREDIENT_PRICES[action.key],
-      building: true
-    })
+  return updateObject(state, {
+    ingredients: {
+      ...state.ingredients,
+      [action.key]: state.ingredients[action.key] - 1
+    },
+    totalPrice: state.totalPrice - INGREDIENT_PRICES[action.key],
+    building: true
+  })
 }
 
 const reducer = (state = intialState, action) => {
@@ -68,10 +58,10 @@ const reducer = (state = intialState, action) => {
       return addIngredient(state, action)
     case actionTypes.REMOVE_INGREDIENT:
       return removeIngredient(state, action)
-    case actionTypes.INIT_INGREDIENTS:
-      return initIngredients(state, action)
-    case actionTypes.INIT_INGREDIENTS_ERROR:
-      return initIngredientsError(state, action)
+    case actionTypes.SET_INGREDIENTS:
+      return setIngredients(state, action)
+    case actionTypes.SET_INGREDIENTS_ERROR:
+      return setIngredientsError(state, action)
     default:
       return state
   }

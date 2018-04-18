@@ -1,8 +1,4 @@
-import axios from 'axios'
 import * as actionTypes from './actionTypes'
-
-// Set your API key in your .env.dev and .env.prod files
-const API_KEY = process.env.DB_API_KEY
 
 export const authStart = () => {
   return {
@@ -103,24 +99,28 @@ export const setAuthRedirectPath = path => {
 }
 
 export const checkAuthState = () => {
-  return dispatch => {
-    const token = window.localStorage.getItem('token')
-    if (!token) {
-      dispatch(logout())
-    } else {
-      const expirationDate = new Date(
-        window.localStorage.getItem('expirationDate')
-      )
-      const today = new Date()
-      if (expirationDate <= today) {
-        dispatch(logout())
-      } else {
-        const userId = window.localStorage.getItem('userId')
-        dispatch(authSuccess({ idToken: token, localId: userId }))
-        dispatch(
-          authTimeout((expirationDate.getTime() - today.getTime()) / 1000)
-        )
-      }
-    }
+  // return dispatch => {
+  //   const token = window.localStorage.getItem('token')
+  //   if (!token) {
+  //     dispatch(logout())
+  //   } else {
+  //     const expirationDate = new Date(
+  //       window.localStorage.getItem('expirationDate')
+  //     )
+  //     const today = new Date()
+  //     if (expirationDate <= today) {
+  //       dispatch(logout())
+  //     } else {
+  //       const userId = window.localStorage.getItem('userId')
+  //       dispatch(authSuccess({ idToken: token, localId: userId }))
+  //       dispatch(
+  //         authTimeout((expirationDate.getTime() - today.getTime()) / 1000)
+  //       )
+  //     }
+  //   }
+  // }
+  // Now with Redux Saga
+  return {
+    type: actionTypes.CHECK_AUTH_STATE
   }
 }

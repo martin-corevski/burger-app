@@ -1,14 +1,13 @@
 import * as actionTypes from './actionTypes'
-import axios from '../../axios-orders'
 
-const setIngredients = (ingredients) => {
+export const setIngredients = ingredients => {
   return {
-    type: actionTypes.INIT_INGREDIENTS,
+    type: actionTypes.SET_INGREDIENTS,
     ings: ingredients
   }
 }
 
-const getIngredientsError = (err) => {
+export const getIngredientsError = err => {
   return {
     type: actionTypes.INIT_INGREDIENTS_ERROR,
     error: err
@@ -16,25 +15,30 @@ const getIngredientsError = (err) => {
 }
 
 export const initIngredients = () => {
-  return dispatch => {
-    axios.get('/ingredients.json')
-      .then(res => {
-        dispatch(setIngredients(res.data))
-      })
-      .catch(err => {
-        dispatch(getIngredientsError(err))
-      })
+  // return dispatch => {
+  //   axios
+  //     .get('/ingredients.json')
+  //     .then(res => {
+  //       dispatch(setIngredients(res.data))
+  //     })
+  //     .catch(err => {
+  //       dispatch(getIngredientsError(err))
+  //     })
+  // }
+  // Now with Redux Saga
+  return {
+    type: actionTypes.INIT_INGREDIENTS
   }
 }
 
-export const addIngredient = (key) => {
+export const addIngredient = key => {
   return {
     type: actionTypes.ADD_INGREDIENT,
     key: key
   }
 }
 
-export const removeIngredient = (key) => {
+export const removeIngredient = key => {
   return {
     type: actionTypes.REMOVE_INGREDIENT,
     key: key
