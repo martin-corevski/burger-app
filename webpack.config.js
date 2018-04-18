@@ -125,9 +125,9 @@ module.exports = env => {
     },
     /**
      * Entry source, where magic needs to happen Q.Q
-     * @type {String}
+     * @type {Array}
      */
-    entry: './index.js', // maybe ./src/index.js
+    entry: ['babel-polyfill', './index.js'], // maybe ./src/index.js
     /**
      * Output option has the path to the folder where we will create the new
      * bundle with name as filename.
@@ -215,11 +215,12 @@ module.exports = env => {
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['react', 'env'],
+              presets: ['react', 'env', 'stage-0'],
               plugins: [
                 'transform-class-properties',
                 'transform-object-rest-spread',
-                'syntax-dynamic-import'
+                'syntax-dynamic-import',
+                'transform-regenerator'
               ]
             }
           }

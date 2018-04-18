@@ -4,18 +4,22 @@ import { BrowserRouter } from 'react-router-dom'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
+import createSagaMiddleware from 'redux-saga'
 
 import './index.scss'
 import App from './containers/App'
-import burgerBuilder from './store/reducers/burgerBuilder'
-import order from './store/reducers/order'
-import auth from './store/reducers/auth'
+import burgerBuilderReducer from './store/reducers/burgerBuilder'
+import orderReducer from './store/reducers/order'
+import authReducer from './store/reducers/auth'
+import { watchAuth } from './store/sagas/index'
 
 const rootReducer = combineReducers({
-  burger: burgerBuilder,
-  order: order,
-  auth: auth
+  burger: burgerBuilderReducer,
+  order: orderReducer,
+  auth: authReducer
 })
+
+const sagaMiddleware = createSagaMiddleware()
 
 // For Chrome Dev tools, https://github.com/zalmoxisus/redux-devtools-extension
 const composeEnhancers =
@@ -23,7 +27,12 @@ const composeEnhancers =
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : null || compose
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk, sagaMiddleware))
+)
+
+sagaMiddleware.run(watchAuth)
 
 const app = (
   <Provider store={store}>
